@@ -27,7 +27,7 @@ final class CLRouterClientTests : XCTestCase {
     func test_createDeleteSkill() {
         let router = CLRouterClient()
         let exp = expectation(description: "test_createDeleteSkill")
-        
+                
         router.createSkill(name: "iOS-SDK-TestSkill") { response in
             switch(response) {
             case .success(let data):
@@ -57,7 +57,24 @@ final class CLRouterClientTests : XCTestCase {
         router.getSkills() { response in
             switch(response) {
             case .success(let data):
-                XCTAssertGreaterThan(data.count, 1)
+                XCTAssertGreaterThan(data.count, 0)
+                exp.fulfill()
+            case .failure(let error):
+                fatalError(error.localizedDescription)
+            }
+        }
+        
+        waitForExpectations(timeout: 5.0, handler: nil)
+    }
+    
+    func test_getInteractions() {
+        let router = CLRouterClient()
+        let exp = expectation(description: "test_getInteractions")
+        
+        router.getInteractions() { response in
+            switch(response) {
+            case .success(let data):
+                XCTAssertGreaterThan(data.count, 0)
                 exp.fulfill()
             case .failure(let error):
                 fatalError(error.localizedDescription)

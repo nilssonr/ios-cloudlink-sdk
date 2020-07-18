@@ -45,4 +45,15 @@ class CLRouterClient {
             }
         }
     }
+    
+    func getInteractions(completion: @escaping (Result<CLHttpResponse<CLInteraction>, Error>) -> Void) {
+        self.httpClient.get(url: "\(self.baseUrl)/interactions", accessToken: ClAuthenticationClient.instance().token.accessToken) { (result: Result<CLHttpResponse<CLInteraction>, Error>) in
+            switch(result) {
+            case .success(let data):
+                completion(.success(data))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
 }

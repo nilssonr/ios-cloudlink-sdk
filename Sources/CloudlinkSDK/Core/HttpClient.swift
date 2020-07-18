@@ -30,6 +30,7 @@ class CLHttpClient {
             case .success(let data):
                 completion(.success(data))
             case .failure(let error):
+                debugPrint(error)
                 completion(.failure(error))
             }
         }
