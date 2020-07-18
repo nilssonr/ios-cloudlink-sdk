@@ -13,10 +13,11 @@ class ClAuthenticationClient {
         
     public var token: CLToken!
     private var httpClient = CLHttpClient()
+    private var baseUrl = "https://authentication.dev.api.mitel.io/2017-09-01"
     
     func getToken(request: CLTokenRequest, completion: @escaping (Result<CLToken, Error>) -> Void) {
         self.httpClient.post(
-            url: "https://authentication.dev.api.mitel.io/2017-09-01/token",
+            url: "\(self.baseUrl)/token",
             parameters: [
                 "account_id": request.accountId,
                 "username": request.username,
@@ -34,9 +35,26 @@ class ClAuthenticationClient {
         }
     }
     
+    func getRefreshToken(completion: @escaping (Result<CLToken, Error>) -> Void) {
+        self.httpClient.post(
+            url: "\(self.baseUrl)/token",
+            parameters: [
+                "grant_type": "refresh_token",
+                "token": ClAuthenticationClient.instance().token.refreshToken
+            ]
+        ){ (result: Result<CLToken, Error>) in
+            switch(result) {
+            case .success(let data):
+                completion(.success(data))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
     func whoAmI(completion: @escaping (Result<CLTokenInformation, Error>) -> Void) {
         self.httpClient.get(
-            url: "https://authentication.dev.api.mitel.io/2017-09-01/token",
+            url: "\(self.baseUrl)/token",
             accessToken: self.token.accessToken
         ) { (result: Result<CLTokenInformation, Error>) in
             switch(result) {
