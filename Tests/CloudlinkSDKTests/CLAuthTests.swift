@@ -32,10 +32,10 @@ final class CLAuthenticationClientTests : XCTestCase {
         
         ClAuthenticationClient.instance().whoAmI() { response in
             switch(response) {
-                case .success(let data):
-                    XCTAssertEqual(data.email, "robin.nilsson@mitel.com")
-                case .failure(let error):
-                    fatalError(error.localizedDescription)
+            case .success(let data):
+                XCTAssertEqual(data.email, "robin.nilsson@mitel.com")
+            case .failure(let error):
+                fatalError(error.localizedDescription)
             }
             exp.fulfill()
         }

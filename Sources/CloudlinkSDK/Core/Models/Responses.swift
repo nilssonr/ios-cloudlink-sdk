@@ -1,12 +1,12 @@
 struct CLHttpResponse<T> : Codable where T : Codable {
     var count: Int
     var links: CLHttpResponseLinks
-    //var embedded: CLHttpResponseEmbedded<T>
+    var embedded: CLHttpResponseEmbedded<T>
     
     enum CodingKeys: String, CodingKey {
         case count
         case links = "_links"
-        //case embedded = "_embedded"
+        case embedded = "_embedded"
     }
 }
 
@@ -25,7 +25,3 @@ struct CLHttpResponseEmbedded<T> : Codable where T : Codable {
         case items
     }
 }
-
-
-
-

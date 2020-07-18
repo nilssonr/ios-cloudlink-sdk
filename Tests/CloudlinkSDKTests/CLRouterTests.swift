@@ -3,7 +3,7 @@ import XCTest
 
 final class CLRouterClientTests : XCTestCase {
     static var allTests = [
-        ("test_getSkills", test_getSkills)
+        ("test_createDeleteSkill", test_createDeleteSkill)
     ]
     
     override func setUp() {
@@ -23,18 +23,26 @@ final class CLRouterClientTests : XCTestCase {
         waitForExpectations(timeout: 5.0, handler: nil)
     }
     
-    func test_getSkills() {
+    func test_createDeleteSkill() {
         let router = CLRouterClient()
-        let exp = expectation(description: "test_getSkills")
-                
-        router.getSkills() { response in
+        let exp = expectation(description: "test_createDeleteSkill")
+        
+        router.createSkill(name: "iOS-SDK-TestSkill") { response in
             switch(response) {
-                case .success(let data):
-                    debugPrint(data)
-                case .failure(let error):
-                    fatalError(error.localizedDescription)
+            case .success(let data):
+                XCTAssertEqual(data.name, "iOS-SDK-TestSkill")
+                router.deleteSkill(skillId: data.skillId) { response in
+                    switch(response) {
+                    case .success(let data):
+                        XCTAssertTrue(data)
+                        exp.fulfill()
+                    case .failure(let error):
+                        fatalError(error.localizedDescription)
+                    }
+                }
+            case .failure(let error):
+                fatalError(error.localizedDescription)
             }
-            exp.fulfill()
         }
         
         waitForExpectations(timeout: 5.0, handler: nil)
