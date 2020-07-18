@@ -4,7 +4,8 @@ import XCTest
 final class CLAdminClientTests: XCTestCase {
     static var allTests = [
         ("test_getAccount", test_getAccount),
-        ("test_getAccountContacts", test_getAccountContacts)
+        ("test_getContacts", test_getContacts),
+        ("test_getContact", test_getContact)
     ]
     
     override func setUp() {
@@ -48,14 +49,14 @@ final class CLAdminClientTests: XCTestCase {
         waitForExpectations(timeout: 5.0, handler: nil)
     }
     
-    func test_getAccountContacts() {
+    func test_getContacts() {
         let admin = CLAdminClient()
         let exp = expectation(description: "test_getAccountContact")
         
         ClAuthenticationClient.instance().whoAmI() { result in
             switch(result) {
             case .success(let data):
-                admin.getAccountContacts(accountId: data.accountId) { result in
+                admin.getContacts(accountId: data.accountId) { result in
                     switch(result) {
                     case .success(let data):
                         XCTAssertGreaterThan(data.count, 0)
@@ -70,5 +71,36 @@ final class CLAdminClientTests: XCTestCase {
         }
         
         waitForExpectations(timeout: 5.0, handler: nil)
+    }
+    
+    func test_getContact() {
+        let admin = CLAdminClient()
+        let exp = expectation(description: "test_getContact")
+        
+        ClAuthenticationClient.instance().whoAmI() { result in
+            switch(result) {
+            case .success(let data):
+                admin.getContacts(accountId: data.accountId) { result in
+                    switch(result) {
+                    case .success(let data):
+                        admin.getContact(accountId: data.embedded.items[0].accountId, contactId: data.embedded.items[0].contactId) { result in
+                            switch(result) {
+                            case .success(let data):
+                                XCTAssertNotNil(data.accountId)
+                                exp.fulfill()
+                            case .failure(let error):
+                                fatalError(error.localizedDescription)
+                            }
+                        }
+                    case .failure(let error):
+                        fatalError(error.localizedDescription)
+                    }
+                }
+            case .failure(let error):
+                fatalError(error.localizedDescription)
+            }
+        }
+        
+        waitForExpectations(timeout: 10.0, handler: nil)
     }
 }
