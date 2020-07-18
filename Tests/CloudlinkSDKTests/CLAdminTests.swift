@@ -3,7 +3,8 @@ import XCTest
 
 final class CLAdminClientTests: XCTestCase {
     static var allTests = [
-        ("test_getAccount", test_getAccount)
+        ("test_getAccount", test_getAccount),
+        ("test_getAccountContacts", test_getAccountContacts)
     ]
     
     override func setUp() {
@@ -34,6 +35,30 @@ final class CLAdminClientTests: XCTestCase {
                     switch(result) {
                     case .success(let data):
                         XCTAssertGreaterThan(data.accessTokenExpiryHours, 0)
+                        exp.fulfill()
+                    case .failure(let error):
+                        fatalError(error.localizedDescription)
+                    }
+                }
+            case .failure(let error):
+                fatalError(error.localizedDescription)
+            }
+        }
+        
+        waitForExpectations(timeout: 5.0, handler: nil)
+    }
+    
+    func test_getAccountContacts() {
+        let admin = CLAdminClient()
+        let exp = expectation(description: "test_getAccountContact")
+        
+        ClAuthenticationClient.instance().whoAmI() { result in
+            switch(result) {
+            case .success(let data):
+                admin.getAccountContacts(accountId: data.accountId) { result in
+                    switch(result) {
+                    case .success(let data):
+                        XCTAssertGreaterThan(data.count, 0)
                         exp.fulfill()
                     case .failure(let error):
                         fatalError(error.localizedDescription)

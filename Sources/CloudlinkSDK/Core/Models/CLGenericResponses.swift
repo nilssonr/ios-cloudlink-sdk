@@ -13,9 +13,12 @@ struct CLHttpResponse<T> : Codable where T : Codable {
 struct CLHttpResponseLinks : Codable {
     var self_type: String
     var reference: String?
+    var next: String?
     
     enum CodingKeys: String, CodingKey {
         case self_type = "self"
+        case reference
+        case next
     }
 }
 

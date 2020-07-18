@@ -4,10 +4,11 @@ struct CLContact : Codable {
     var contactId: String
     var accountId: String
     var name: String
-    var email: String
+    var email: String?
     var contactType: String
     var createdBy: String
     var modifiedBy: String
+    var links: CLHttpResponseLinks?
     
     enum CodingKeys: String, CodingKey {
         case createdOn
@@ -19,5 +20,6 @@ struct CLContact : Codable {
         case contactType
         case createdBy
         case modifiedBy
+        case links = "_links"
     }
 }

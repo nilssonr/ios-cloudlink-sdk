@@ -12,4 +12,16 @@ class CLAdminClient {
             }
         }
     }
+    
+    func getAccountContacts(accountId: String, completion: @escaping (Result<CLHttpResponse<CLContact>, Error>) -> Void) {
+        self.httpClient.get(url: "\(self.baseUrl)/accounts/\(accountId)/contacts", accessToken: ClAuthenticationClient.instance().token.accessToken) { (result: Result<CLHttpResponse<CLContact>, Error>) in
+            switch(result) {
+            case .success(let data):
+                completion(.success(data))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+
 }
