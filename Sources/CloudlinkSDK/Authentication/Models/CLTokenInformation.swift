@@ -19,7 +19,7 @@ public struct CLTokenInformation : Codable {
     var emailVerified: String
     var phone: String
     var domain: String
-    var name: String
+    public var name: String
     var siteId: String
     var partnerId: String
     
