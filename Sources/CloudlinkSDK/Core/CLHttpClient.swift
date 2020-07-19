@@ -1,7 +1,7 @@
 import Alamofire
 import Foundation
 
-class CLHttpClient {
+public class CLHttpClient {
     func post<T>(url: String, accessToken: String, parameters: [String:String], contentType: String = "application/json", completion: @escaping (Result<T, Error>) -> Void) where T : Codable {
         AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: [.authorization(bearerToken: accessToken), .contentType(contentType), .accept("application/json")]).validate().responseDecodable(of: T.self) { response in
             switch(response.result) {

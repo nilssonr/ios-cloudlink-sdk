@@ -1,4 +1,4 @@
-struct CLLocation : Codable {
+public struct CLLocation : Codable {
     var address: CLAddress
     
     enum CodingKeys: String, CodingKey {

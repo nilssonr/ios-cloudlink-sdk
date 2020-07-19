@@ -1,4 +1,4 @@
-struct CLPolicy : Codable {
+public struct CLPolicy : Codable {
     var allowGuestAccess: Bool
     var allowProxyAuthentication: Bool
     

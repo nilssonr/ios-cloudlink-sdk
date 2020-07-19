@@ -1,4 +1,4 @@
-struct CLTokenRequest {
+public struct CLTokenRequest {
     var accountId: String;
     var username: String;
     var password: String;

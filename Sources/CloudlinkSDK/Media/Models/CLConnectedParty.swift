@@ -1,4 +1,4 @@
-struct CLConnectedParty : Codable {
+public struct CLConnectedParty : Codable {
     var accountId: String
     var siteId: String
     var userId: String

@@ -1,4 +1,4 @@
-struct CLInteraction : Codable {
+public struct CLInteraction : Codable {
     var interactionId: String
     var skillGroupId: String
     var state: String

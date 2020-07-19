@@ -1,4 +1,4 @@
-struct CLAccount : Codable {
+public struct CLAccount : Codable {
     var accountId: String
     var accessTokenExpiryHours: Int
     var refreshTokenExpiryHours: Int
