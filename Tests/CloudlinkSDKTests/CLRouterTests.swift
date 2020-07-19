@@ -4,7 +4,10 @@ import XCTest
 final class CLRouterClientTests : XCTestCase {
     static var allTests = [
         ("test_createDeleteSkill", test_createDeleteSkill),
-        ("test_getManyGetOne", test_getManyGetOne)
+        ("test_getManyGetOne", test_getManyGetOne),
+        ("test_getInteractions", test_getInteractions),
+        ("test_getEndpoints", test_getEndpoints),
+        ("test_getChannels", test_getChannels)
     ]
     
     override func setUp() {
@@ -72,6 +75,57 @@ final class CLRouterClientTests : XCTestCase {
         let exp = expectation(description: "test_getInteractions")
         
         router.getInteractions() { response in
+            switch(response) {
+            case .success(let data):
+                XCTAssertGreaterThan(data.count, 0)
+                exp.fulfill()
+            case .failure(let error):
+                fatalError(error.localizedDescription)
+            }
+        }
+        
+        waitForExpectations(timeout: 5.0, handler: nil)
+    }
+    
+    func test_getEndpoints() {
+        let router = CLRouterClient()
+        let exp = expectation(description: "test_getEndpoints")
+        
+        router.getEndpoints() { response in
+            switch(response) {
+            case .success(let data):
+                XCTAssertGreaterThan(data.count, 0)
+                exp.fulfill()
+            case .failure(let error):
+                fatalError(error.localizedDescription)
+            }
+        }
+        
+        waitForExpectations(timeout: 5.0, handler: nil)
+    }
+    
+    func test_getEndpoint() {
+        let router = CLRouterClient()
+        let exp = expectation(description: "test_getEndpoint")
+        
+        router.getEndpoint(endpointId: "me") { response in
+            switch(response) {
+            case .success(let data):
+                XCTAssertNotNil(data.endpointId)
+                exp.fulfill()
+            case .failure(let error):
+                fatalError(error.localizedDescription)
+            }
+        }
+        
+        waitForExpectations(timeout: 5.0, handler: nil)
+    }
+    
+    func test_getChannels() {
+        let router = CLRouterClient()
+        let exp = expectation(description: "test_getChannels")
+        
+        router.getChannels(endpointId: "me") { response in
             switch(response) {
             case .success(let data):
                 XCTAssertGreaterThan(data.count, 0)

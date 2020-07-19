@@ -56,4 +56,37 @@ public class CLRouterClient {
             }
         }
     }
+    
+    public func getEndpoints(completion: @escaping (Result<CLHttpResponse<CLEndpoint>, Error>) -> Void) {
+        self.httpClient.get(url: "\(self.baseUrl)/endpoints", accessToken: CLAuthenticationClient.instance().token.accessToken) { (result: Result<CLHttpResponse<CLEndpoint>, Error>) in
+            switch(result) {
+            case .success(let data):
+                completion(.success(data))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    public func getEndpoint(endpointId: String, completion: @escaping (Result<CLEndpoint, Error>) -> Void) {
+        self.httpClient.get(url: "\(self.baseUrl)/endpoints/\(endpointId)", accessToken: CLAuthenticationClient.instance().token.accessToken) { (result: Result<CLEndpoint, Error>) in
+            switch(result) {
+            case .success(let data):
+                completion(.success(data))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    public func getChannels(endpointId: String, completion: @escaping (Result<CLHttpResponse<CLChannel>, Error>) -> Void) {
+        self.httpClient.get(url: "\(self.baseUrl)/endpoints/\(endpointId)/channels", accessToken: CLAuthenticationClient.instance().token.accessToken) { (result: Result<CLHttpResponse<CLChannel>, Error>) in
+            switch(result) {
+            case .success(let data):
+                completion(.success(data))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
 }
