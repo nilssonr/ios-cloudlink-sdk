@@ -1,4 +1,4 @@
-public struct CLUser: Codable {
+public class CLUser: Codable {
     public var createdOn: String?
     public var modifiedOn: String?
     public var accountId: String?
