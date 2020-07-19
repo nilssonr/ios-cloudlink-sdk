@@ -56,5 +56,6 @@ public class CLUser: Codable {
         case avatars
         case modifiedBy
     }
+    
+    public init() {}
 }
-
