@@ -89,4 +89,7 @@ public class CLRouterClient {
             }
         }
     }
+    
+    public init() {
+    }
 }
