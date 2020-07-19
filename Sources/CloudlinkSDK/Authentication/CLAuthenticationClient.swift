@@ -6,7 +6,7 @@ public class ClAuthenticationClient {
     private init() {
     }
     
-    class func instance() -> ClAuthenticationClient {
+    public class func instance() -> ClAuthenticationClient {
         return sharedAuthClient
     }
         
