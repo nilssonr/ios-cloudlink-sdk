@@ -11,13 +11,13 @@ final class CLAuthenticationClientTests : XCTestCase {
         let tokenRequest = CLTokenRequest(accountId: testToken.accountId, username: testToken.username, password: testToken.password, grantType: testToken.grantType)
         let exp = expectation(description: "acquire_token")
         
-        ClAuthenticationClient.instance().getToken(request: tokenRequest) { response in
+        CLAuthenticationClient.instance().getToken(request: tokenRequest) { response in
             switch(response) {
             case .success(_):
-                XCTAssertGreaterThan(ClAuthenticationClient.instance().token.expiresIn, 0)
-                XCTAssertNotNil(ClAuthenticationClient.instance().token.accessToken)
-                XCTAssertNotNil(ClAuthenticationClient.instance().token.refreshToken)
-                XCTAssertEqual(ClAuthenticationClient.instance().token.tokenType, "bearer")
+                XCTAssertGreaterThan(CLAuthenticationClient.instance().token.expiresIn, 0)
+                XCTAssertNotNil(CLAuthenticationClient.instance().token.accessToken)
+                XCTAssertNotNil(CLAuthenticationClient.instance().token.refreshToken)
+                XCTAssertEqual(CLAuthenticationClient.instance().token.tokenType, "bearer")
                 exp.fulfill()
             case .failure(let error):
                 fatalError(error.localizedDescription)
@@ -30,7 +30,7 @@ final class CLAuthenticationClientTests : XCTestCase {
     func test_refreshToken() {
         let exp = expectation(description: "test_refreshToken")
         
-        ClAuthenticationClient.instance().getRefreshToken() { response in
+        CLAuthenticationClient.instance().getRefreshToken() { response in
             switch(response) {
             case .success(let data):
                 XCTAssertEqual(data.tokenType, "bearer")
@@ -46,7 +46,7 @@ final class CLAuthenticationClientTests : XCTestCase {
     func test_whoAmI() {
         let exp = expectation(description: "test_whoAmI")
         
-        ClAuthenticationClient.instance().whoAmI() { response in
+        CLAuthenticationClient.instance().whoAmI() { response in
             switch(response) {
             case .success(let data):
                 XCTAssertEqual(data.email, "robin.nilsson@mitel.com")

@@ -12,7 +12,7 @@ final class CLRouterClientTests : XCTestCase {
         let tokenRequest = CLTokenRequest(accountId: testToken.accountId, username: testToken.username, password: testToken.password, grantType: testToken.grantType)
         let exp = expectation(description: "acquire_token")
         
-        ClAuthenticationClient.instance().getToken(request: tokenRequest) { response in
+        CLAuthenticationClient.instance().getToken(request: tokenRequest) { response in
             switch(response) {
             case .success(_):
                 exp.fulfill()

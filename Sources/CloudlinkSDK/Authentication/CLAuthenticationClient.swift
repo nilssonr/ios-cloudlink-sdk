@@ -1,12 +1,12 @@
 public class CLAuthenticationClient {
-    private static var sharedAuthClient: ClAuthenticationClient = {
-        return ClAuthenticationClient()
+    private static var sharedAuthClient: CLAuthenticationClient = {
+        return CLAuthenticationClient()
     }()
     
     private init() {
     }
     
-    public class func instance() -> ClAuthenticationClient {
+    public class func instance() -> CLAuthenticationClient {
         return sharedAuthClient
     }
         
@@ -39,7 +39,7 @@ public class CLAuthenticationClient {
             url: "\(self.baseUrl)/token",
             parameters: [
                 "grant_type": "refresh_token",
-                "token": ClAuthenticationClient.instance().token.refreshToken
+                "token": CLAuthenticationClient.instance().token.refreshToken
             ]
         ){ (result: Result<CLToken, Error>) in
             switch(result) {

@@ -13,7 +13,7 @@ final class CLAdminClientTests: XCTestCase {
         let tokenRequest = CLTokenRequest(accountId: testToken.accountId, username: testToken.username, password: testToken.password, grantType: testToken.grantType)
         let exp = expectation(description: "acquire_token")
         
-        ClAuthenticationClient.instance().getToken(request: tokenRequest) { response in
+        CLAuthenticationClient.instance().getToken(request: tokenRequest) { response in
             switch(response) {
             case .success(_):
                 exp.fulfill()
@@ -29,7 +29,7 @@ final class CLAdminClientTests: XCTestCase {
         let admin = CLAdminClient()
         let exp = expectation(description: "test_getAccount")
         
-        ClAuthenticationClient.instance().whoAmI() { result in
+        CLAuthenticationClient.instance().whoAmI() { result in
             switch(result) {
             case .success(let data):
                 admin.getAccount(accountId: data.accountId) { result in
@@ -53,7 +53,7 @@ final class CLAdminClientTests: XCTestCase {
         let admin = CLAdminClient()
         let exp = expectation(description: "test_getAccountContact")
         
-        ClAuthenticationClient.instance().whoAmI() { result in
+        CLAuthenticationClient.instance().whoAmI() { result in
             switch(result) {
             case .success(let data):
                 admin.getContacts(accountId: data.accountId) { result in
@@ -77,7 +77,7 @@ final class CLAdminClientTests: XCTestCase {
         let admin = CLAdminClient()
         let exp = expectation(description: "test_getContact")
         
-        ClAuthenticationClient.instance().whoAmI() { result in
+        CLAuthenticationClient.instance().whoAmI() { result in
             switch(result) {
             case .success(let data):
                 admin.getContacts(accountId: data.accountId) { result in
