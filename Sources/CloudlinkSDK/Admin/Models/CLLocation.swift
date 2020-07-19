@@ -1,5 +1,5 @@
 public struct CLLocation : Codable {
-    var address: CLAddress
+    public var address: CLAddress
     
     enum CodingKeys: String, CodingKey {
         case address

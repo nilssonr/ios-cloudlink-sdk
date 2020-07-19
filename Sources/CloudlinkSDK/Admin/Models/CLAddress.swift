@@ -1,9 +1,9 @@
 public struct CLAddress : Codable {
-    var country: String
-    var street: String
-    var city: String
-    var stateOrProvince: String
-    var zipCode: String
+    public var country: String
+    public var street: String
+    public var city: String
+    public var stateOrProvince: String
+    public var zipCode: String
     
     enum CodingKeys: String, CodingKey {
         case country

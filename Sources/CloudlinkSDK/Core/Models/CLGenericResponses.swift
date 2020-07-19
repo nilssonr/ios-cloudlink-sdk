@@ -1,7 +1,7 @@
 public struct CLHttpResponse<T> : Codable where T : Codable {
-    var count: Int
-    var links: CLHttpResponseLinks
-    var embedded: CLHttpResponseEmbedded<T>
+    public var count: Int
+    public var links: CLHttpResponseLinks
+    public var embedded: CLHttpResponseEmbedded<T>
     
     enum CodingKeys: String, CodingKey {
         case count
@@ -11,19 +11,19 @@ public struct CLHttpResponse<T> : Codable where T : Codable {
 }
 
 public struct CLHttpResponseLinks : Codable {
-    var self_type: String
-    var reference: String?
-    var next: String?
+    public var selfUrl: String
+    public var reference: String?
+    public var next: String?
     
     enum CodingKeys: String, CodingKey {
-        case self_type = "self"
+        case selfUrl = "self"
         case reference
         case next
     }
 }
 
 public struct CLHttpResponseEmbedded<T> : Codable where T : Codable {
-    var items: [T]
+    public var items: [T]
     
     enum CodingKeys: String, CodingKey {
         case items

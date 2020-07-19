@@ -1,6 +1,6 @@
 public struct CLPolicy : Codable {
-    var allowGuestAccess: Bool
-    var allowProxyAuthentication: Bool
+    public var allowGuestAccess: Bool
+    public var allowProxyAuthentication: Bool
     
     enum CodingKeys: String, CodingKey {
         case allowGuestAccess

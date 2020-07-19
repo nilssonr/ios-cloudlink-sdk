@@ -1,18 +1,18 @@
 public struct CLInteraction : Codable {
-    var interactionId: String
-    var skillGroupId: String
-    var state: String
-    var channelType: String
-    var priority: String
-    var timeOfferedToSystem: String
-    var timeOfferedToSkillGroup: String
-    var timeOfferedToEndpoint: String
-    var handlingChannelId: String
-    var handlingEndpointId: String
-    var createdBy: String
-    var createdOn: String
-    var modifiedBy: String
-    var links: CLHttpResponseLinks
+    public var interactionId: String
+    public var skillGroupId: String
+    public var state: String
+    public var channelType: String
+    public var priority: String
+    public var timeOfferedToSystem: String
+    public var timeOfferedToSkillGroup: String
+    public var timeOfferedToEndpoint: String
+    public var handlingChannelId: String
+    public var handlingEndpointId: String
+    public var createdBy: String
+    public var createdOn: String
+    public var modifiedBy: String
+    public var links: CLHttpResponseLinks
     
     enum CodingKeys: String, CodingKey {
         case interactionId

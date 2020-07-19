@@ -1,8 +1,8 @@
 public struct CLConnectedParty : Codable {
-    var accountId: String
-    var siteId: String
-    var userId: String
-    var name: String
+    public var accountId: String
+    public var siteId: String
+    public var userId: String
+    public var name: String
     
     enum CodingKeys: String, CodingKey {
         case accountId

@@ -1,11 +1,11 @@
 public struct CLSkill : Codable {
-    var skillId: String
-    var name: String
-    var createdBy: String
-    var createdOn: String
-    var modifiedBy: String
-    var modifiedOn: String
-    var links: CLHttpResponseLinks
+    public var skillId: String
+    public var name: String
+    public var createdBy: String
+    public var createdOn: String
+    public var modifiedBy: String
+    public var modifiedOn: String
+    public var links: CLHttpResponseLinks
     
     enum CodingKeys: String, CodingKey {
         case skillId

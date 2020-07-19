@@ -1,9 +1,9 @@
 public struct CLToken : Codable {
-    var tokenType: String
-    var expiresIn: Int
-    var accessToken: String
-    var refreshToken: String
-    var scope: String
+    public var tokenType: String
+    public var expiresIn: Int
+    public var accessToken: String
+    public var refreshToken: String
+    public var scope: String
     
     enum CodingKeys: String, CodingKey {
         case tokenType = "token_type"

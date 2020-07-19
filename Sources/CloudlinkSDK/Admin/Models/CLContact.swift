@@ -1,14 +1,14 @@
 public struct CLContact : Codable {
-    var createdOn: String
-    var modifiedOn: String
-    var contactId: String
-    var accountId: String
-    var name: String
-    var email: String?
-    var contactType: String
-    var createdBy: String
-    var modifiedBy: String
-    var links: CLHttpResponseLinks?
+    public var createdOn: String
+    public var modifiedOn: String
+    public var contactId: String
+    public var accountId: String
+    public var name: String
+    public var email: String?
+    public var contactType: String
+    public var createdBy: String
+    public var modifiedBy: String
+    public var links: CLHttpResponseLinks?
     
     enum CodingKeys: String, CodingKey {
         case createdOn
