@@ -1,4 +1,4 @@
-public class ClAuthenticationClient {
+public class CLAuthenticationClient {
     private static var sharedAuthClient: ClAuthenticationClient = {
         return ClAuthenticationClient()
     }()
