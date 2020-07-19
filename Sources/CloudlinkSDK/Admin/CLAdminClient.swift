@@ -34,5 +34,27 @@ public class CLAdminClient {
             }
         }
     }
+    
+    public func getUsers(completion: @escaping (Result<CLHttpResponse<CLUser>, Error>) -> Void) {
+        self.httpClient.get(url: "\(self.baseUrl)/users", accessToken: CLAuthenticationClient.instance().token.accessToken) { (result: Result<CLHttpResponse<CLUser>, Error>) in
+            switch(result) {
+            case .success(let data):
+                completion(.success(data))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    public func getUser(userId: String, completion: @escaping (Result<CLUser, Error>) -> Void) {
+        self.httpClient.get(url: "\(self.baseUrl)/users/\(userId)", accessToken: CLAuthenticationClient.instance().token.accessToken) { (result: Result<CLUser, Error>) in
+            switch(result) {
+            case .success(let data):
+                completion(.success(data))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
 
 }

@@ -1,4 +1,4 @@
-public struct CLCallHistoryItem : Codable {
+public struct CLCallHistoryItem: Codable {
     public var callId: String
     public var accountId: String
     public var siteId: String

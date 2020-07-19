@@ -1,4 +1,4 @@
-public struct CLToken : Codable {
+public struct CLToken: Codable {
     public var tokenType: String
     public var expiresIn: Int
     public var accessToken: String

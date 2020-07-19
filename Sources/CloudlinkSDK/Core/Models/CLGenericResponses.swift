@@ -1,4 +1,4 @@
-public struct CLHttpResponse<T> : Codable where T : Codable {
+public struct CLHttpResponse<T>: Codable where T: Codable {
     public var count: Int
     public var links: CLHttpResponseLinks
     public var embedded: CLHttpResponseEmbedded<T>
@@ -10,7 +10,7 @@ public struct CLHttpResponse<T> : Codable where T : Codable {
     }
 }
 
-public struct CLHttpResponseLinks : Codable {
+public struct CLHttpResponseLinks: Codable {
     public var selfUrl: String
     public var reference: String?
     public var next: String?
@@ -22,7 +22,7 @@ public struct CLHttpResponseLinks : Codable {
     }
 }
 
-public struct CLHttpResponseEmbedded<T> : Codable where T : Codable {
+public struct CLHttpResponseEmbedded<T>: Codable where T: Codable {
     public var items: [T]
     
     enum CodingKeys: String, CodingKey {

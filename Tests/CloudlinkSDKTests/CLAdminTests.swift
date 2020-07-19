@@ -5,7 +5,9 @@ final class CLAdminClientTests: XCTestCase {
     static var allTests = [
         ("test_getAccount", test_getAccount),
         ("test_getContacts", test_getContacts),
-        ("test_getContact", test_getContact)
+        ("test_getContact", test_getContact),
+        ("test_getUsers", test_getUsers),
+        ("test_getUser", test_getUser)
     ]
     
     override func setUp() {
@@ -102,5 +104,46 @@ final class CLAdminClientTests: XCTestCase {
         }
         
         waitForExpectations(timeout: 10.0, handler: nil)
+    }
+    
+    func test_getUsers() {
+        let admin = CLAdminClient()
+        let exp = expectation(description: "test_getUsers")
+        
+        admin.getUsers() { result in
+            switch(result) {
+            case .success(let data):
+                XCTAssertGreaterThan(data.count, 0)
+                exp.fulfill()
+            case .failure(let error):
+                fatalError(error.localizedDescription)
+            }
+        }
+        
+        waitForExpectations(timeout: 5.0, handler: nil)
+    }
+    
+    func test_getUser() {
+        let admin = CLAdminClient()
+        let exp = expectation(description: "test_getUser")
+        
+        admin.getUsers() { result in
+            switch(result) {
+            case .success(let data):
+                admin.getUser(userId: data.embedded.items[0].userId!) { result in
+                    switch(result) {
+                    case .success(let data):
+                        XCTAssertNotNil(data.email)
+                        exp.fulfill()
+                    case .failure(let error):
+                        fatalError(error.localizedDescription)
+                    }
+                }
+            case .failure(let error):
+                fatalError(error.localizedDescription)
+            }
+        }
+        
+        waitForExpectations(timeout: 5.0, handler: nil)
     }
 }

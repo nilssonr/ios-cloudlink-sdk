@@ -1,4 +1,4 @@
-public struct CLTokenInformation : Codable {
+public struct CLTokenInformation: Codable {
     public var extensionNumber: String
     public var role: String
     public var iss: String

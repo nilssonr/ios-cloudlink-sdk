@@ -1,4 +1,4 @@
-public struct CLSkill : Codable {
+public struct CLSkill: Codable {
     public var skillId: String
     public var name: String
     public var createdBy: String

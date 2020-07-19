@@ -1,4 +1,4 @@
-public struct CLContact : Codable {
+public struct CLContact: Codable {
     public var createdOn: String
     public var modifiedOn: String
     public var contactId: String
