@@ -7,7 +7,8 @@ final class CLAdminClientTests: XCTestCase {
         ("test_getContacts", test_getContacts),
         ("test_getContact", test_getContact),
         ("test_getUsers", test_getUsers),
-        ("test_getUser", test_getUser)
+        ("test_getUser", test_getUser),
+        ("test_getTag", test_getTag)
     ]
     
     override func setUp() {
@@ -137,6 +138,30 @@ final class CLAdminClientTests: XCTestCase {
                         exp.fulfill()
                     case .failure(let error):
                         fatalError(error.localizedDescription)
+                    }
+                }
+            case .failure(let error):
+                fatalError(error.localizedDescription)
+            }
+        }
+        
+        waitForExpectations(timeout: 5.0, handler: nil)
+    }
+    
+    func test_getTag() {
+        let admin = CLAdminClient()
+        let exp = expectation(description: "test_getTag")
+        
+        CLAuthenticationClient.instance().whoAmI() { result in
+            switch(result) {
+            case .success(let data):
+                admin.getUserTag(userId: data.userId, tagId: "cx") { result in
+                    switch(result) {
+                    case .success(let data):
+                        XCTAssertNotNil(data.links)
+                        exp.fulfill()
+                    case .failure(let error):
+                        debugPrint(error)
                     }
                 }
             case .failure(let error):

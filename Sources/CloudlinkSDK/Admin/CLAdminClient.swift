@@ -57,6 +57,17 @@ public class CLAdminClient {
         }
     }
     
+    public func getUserTag(userId: String, tagId: String, completion: @escaping (Result<CLTagBase, Error>) -> Void) {
+        self.httpClient.get(url: "\(self.baseUrl)/users/\(userId)/tags/\(tagId)", accessToken: CLAuthenticationClient.instance().token.accessToken) { (result: Result<CLTagBase, Error>) in
+            switch(result) {
+            case .success(let data):
+                completion(.success(data))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
     public init() {
     }
 }
