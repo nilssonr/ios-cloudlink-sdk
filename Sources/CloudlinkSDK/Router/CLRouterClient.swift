@@ -4,9 +4,27 @@ public class CLRouterClient {
     private var httpClient = CLHttpClient()
     private var baseUrl = "https://router.dev.api.mitel.io/2018-03-03"
     
+    // MARK: Skill Groups
+    
     public func getSkillGroups(completion: @escaping (DataResponse<CLHttpResponse<CLSkillGroup>, AFError>) -> Void) {
         self.httpClient.session.GET("\(self.baseUrl)/skillgroups").responseDecodable(completionHandler: completion)
     }
+    
+    public func getSkillGroup(skillGroupId: String, completion: @escaping (DataResponse<CLSkillGroup, AFError>) -> Void) {
+        self.httpClient.session.GET("\(self.baseUrl)/skillgroups/\(skillGroupId)").responseDecodable(completionHandler: completion)
+    }
+    
+    public func createSkillGroup(name: String, skillIds: [String], completion: @escaping (DataResponse<CLSkillGroup, AFError>) -> Void) {
+        let payload = CLSkillGroup(name: name, skills: skillIds)
+        self.httpClient.session.POST("\(self.baseUrl)/skillgroups", payload: payload).responseDecodable(completionHandler: completion)
+    }
+    
+    public func updateSkillGroup(skillGroupId: String, skillIds: [String], completion: @escaping (DataResponse<CLSkillGroup, AFError>) -> Void) {
+        let payload = CLSkillGroup(skillGroupId: skillGroupId, skills: skillIds)
+        self.httpClient.session.PUT("\(self.baseUrl)/skillgroups/\(skillGroupId)", payload: payload).responseDecodable(completionHandler: completion)
+    }
+    
+    // MARK: Skills
     
     public func getSkills(completion: @escaping (DataResponse<CLHttpResponse<CLSkill>, AFError>) -> Void) {
         self.httpClient.session.GET("\(self.baseUrl)/skills").responseDecodable(completionHandler: completion)
@@ -33,6 +51,8 @@ public class CLRouterClient {
             }
         }
     }
+    
+    // MARK: Interactions
     
     public func getInteractions(completion: @escaping (DataResponse<CLHttpResponse<CLInteraction>, AFError>) -> Void) {
         self.httpClient.session.GET("\(self.baseUrl)/interactions").responseDecodable(completionHandler: completion)
