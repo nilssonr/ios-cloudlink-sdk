@@ -32,14 +32,13 @@ final class CLRouterClientTests : XCTestCase {
         let exp = expectation(description: "test_createDeleteSkill")
                 
         router.createSkill(name: "iOS-SDK-TestSkill") { response in
-            switch(response) {
+            switch(response.result) {
             case .success(let data):
                 XCTAssertEqual(data.name, "iOS-SDK-TestSkill")
                 
                 router.deleteSkill(skillId: data.skillId) { response in
                     switch(response) {
-                    case .success(let data):
-                        XCTAssertTrue(data)
+                    case .success(_):
                         exp.fulfill()
                     case .failure(let error):
                         fatalError(error.localizedDescription)
@@ -58,7 +57,7 @@ final class CLRouterClientTests : XCTestCase {
         let exp = expectation(description: "test_getManyGetOne")
         
         router.getSkills() { response in
-            switch(response) {
+            switch(response.result) {
             case .success(let data):
                 XCTAssertGreaterThan(data.count, 0)
                 exp.fulfill()
@@ -75,7 +74,7 @@ final class CLRouterClientTests : XCTestCase {
         let exp = expectation(description: "test_getInteractions")
         
         router.getInteractions() { response in
-            switch(response) {
+            switch(response.result) {
             case .success(let data):
                 XCTAssertGreaterThan(data.count, 0)
                 exp.fulfill()
@@ -92,7 +91,7 @@ final class CLRouterClientTests : XCTestCase {
         let exp = expectation(description: "test_getEndpoints")
         
         router.getEndpoints() { response in
-            switch(response) {
+            switch(response.result) {
             case .success(let data):
                 XCTAssertGreaterThan(data.count, 0)
                 exp.fulfill()
@@ -109,7 +108,7 @@ final class CLRouterClientTests : XCTestCase {
         let exp = expectation(description: "test_getEndpoint")
         
         router.getEndpoint(endpointId: "me") { response in
-            switch(response) {
+            switch(response.result) {
             case .success(let data):
                 XCTAssertNotNil(data.endpointId)
                 exp.fulfill()
@@ -126,9 +125,10 @@ final class CLRouterClientTests : XCTestCase {
         let exp = expectation(description: "test_getChannels")
         
         router.getChannels(endpointId: "me") { response in
-            switch(response) {
+            switch(response.result) {
             case .success(let data):
                 XCTAssertGreaterThan(data.count, 0)
+                debugPrint(data)
                 exp.fulfill()
             case .failure(let error):
                 fatalError(error.localizedDescription)

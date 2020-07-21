@@ -32,11 +32,11 @@ final class CLAdminClientTests: XCTestCase {
         let admin = CLAdminClient()
         let exp = expectation(description: "test_getAccount")
         
-        CLAuthenticationClient.instance().whoAmI() { result in
-            switch(result) {
+        CLAuthenticationClient.instance().whoAmI() { response in
+            switch(response.result) {
             case .success(let data):
-                admin.getAccount(accountId: data.accountId) { result in
-                    switch(result) {
+                admin.getAccount(accountId: data.accountId) { response in
+                    switch(response.result) {
                     case .success(let data):
                         XCTAssertGreaterThan(data.accessTokenExpiryHours, 0)
                         exp.fulfill()
@@ -56,11 +56,11 @@ final class CLAdminClientTests: XCTestCase {
         let admin = CLAdminClient()
         let exp = expectation(description: "test_getAccountContact")
         
-        CLAuthenticationClient.instance().whoAmI() { result in
-            switch(result) {
+        CLAuthenticationClient.instance().whoAmI() { response in
+            switch(response.result) {
             case .success(let data):
-                admin.getContacts(accountId: data.accountId) { result in
-                    switch(result) {
+                admin.getContacts(accountId: data.accountId) { response in
+                    switch(response.result) {
                     case .success(let data):
                         XCTAssertGreaterThan(data.count, 0)
                         exp.fulfill()
@@ -80,14 +80,14 @@ final class CLAdminClientTests: XCTestCase {
         let admin = CLAdminClient()
         let exp = expectation(description: "test_getContact")
         
-        CLAuthenticationClient.instance().whoAmI() { result in
-            switch(result) {
+        CLAuthenticationClient.instance().whoAmI() { response in
+            switch(response.result) {
             case .success(let data):
-                admin.getContacts(accountId: data.accountId) { result in
-                    switch(result) {
+                admin.getContacts(accountId: data.accountId) { response in
+                    switch(response.result) {
                     case .success(let data):
-                        admin.getContact(accountId: data.embedded.items[0].accountId, contactId: data.embedded.items[0].contactId) { result in
-                            switch(result) {
+                        admin.getContact(accountId: data.embedded.items[0].accountId, contactId: data.embedded.items[0].contactId) { response in
+                            switch(response.result) {
                             case .success(let data):
                                 XCTAssertNotNil(data.accountId)
                                 exp.fulfill()
@@ -111,28 +111,29 @@ final class CLAdminClientTests: XCTestCase {
         let admin = CLAdminClient()
         let exp = expectation(description: "test_getUsers")
         
-        admin.getUsers() { result in
-            switch(result) {
+        admin.getUsers() { response in
+            switch(response.result) {
             case .success(let data):
                 XCTAssertGreaterThan(data.count, 0)
-                exp.fulfill()
             case .failure(let error):
-                fatalError(error.localizedDescription)
+                debugPrint(error)
+                XCTFail()
             }
+            exp.fulfill()
         }
-        
+
         waitForExpectations(timeout: 5.0, handler: nil)
     }
-    
+
     func test_getUser() {
         let admin = CLAdminClient()
         let exp = expectation(description: "test_getUser")
-        
-        admin.getUsers() { result in
-            switch(result) {
+
+        admin.getUsers() { response in
+            switch(response.result) {
             case .success(let data):
-                admin.getUser(userId: data.embedded.items[0].userId!) { result in
-                    switch(result) {
+                admin.getUser(userId: data.embedded.items[0].userId!) { response in
+                    switch(response.result) {
                     case .success(let data):
                         XCTAssertNotNil(data.email)
                         exp.fulfill()
@@ -144,7 +145,7 @@ final class CLAdminClientTests: XCTestCase {
                 fatalError(error.localizedDescription)
             }
         }
-        
+
         waitForExpectations(timeout: 5.0, handler: nil)
     }
     
@@ -152,11 +153,11 @@ final class CLAdminClientTests: XCTestCase {
         let admin = CLAdminClient()
         let exp = expectation(description: "test_getTag")
         
-        CLAuthenticationClient.instance().whoAmI() { result in
-            switch(result) {
+        CLAuthenticationClient.instance().whoAmI() { response in
+            switch(response.result) {
             case .success(let data):
-                admin.getUserTag(userId: data.userId, tagId: "cx") { result in
-                    switch(result) {
+                admin.getUserTag(userId: data.userId, tagId: "cx") { response in
+                    switch(response.result) {
                     case .success(let data):
                         XCTAssertNotNil(data.links)
                         exp.fulfill()

@@ -14,10 +14,10 @@ final class CLAuthenticationClientTests : XCTestCase {
         CLAuthenticationClient.instance().getToken(request: tokenRequest) { response in
             switch(response) {
             case .success(_):
-                XCTAssertGreaterThan(CLAuthenticationClient.instance().token.expiresIn, 0)
-                XCTAssertNotNil(CLAuthenticationClient.instance().token.accessToken)
-                XCTAssertNotNil(CLAuthenticationClient.instance().token.refreshToken)
-                XCTAssertEqual(CLAuthenticationClient.instance().token.tokenType, "bearer")
+                XCTAssertGreaterThan(CLAuthenticationClient.instance().token!.expiresIn, 0)
+                XCTAssertNotNil(CLAuthenticationClient.instance().token!.accessToken)
+                XCTAssertNotNil(CLAuthenticationClient.instance().token!.refreshToken)
+                XCTAssertEqual(CLAuthenticationClient.instance().token!.tokenType, "bearer")
                 exp.fulfill()
             case .failure(let error):
                 fatalError(error.localizedDescription)
@@ -31,7 +31,7 @@ final class CLAuthenticationClientTests : XCTestCase {
         let exp = expectation(description: "test_refreshToken")
         
         CLAuthenticationClient.instance().getRefreshToken() { response in
-            switch(response) {
+            switch(response.result) {
             case .success(let data):
                 XCTAssertEqual(data.tokenType, "bearer")
                 exp.fulfill()
@@ -47,7 +47,7 @@ final class CLAuthenticationClientTests : XCTestCase {
         let exp = expectation(description: "test_whoAmI")
         
         CLAuthenticationClient.instance().whoAmI() { response in
-            switch(response) {
+            switch(response.result) {
             case .success(let data):
                 XCTAssertEqual(data.email, "robin.nilsson@mitel.com")
             case .failure(let error):

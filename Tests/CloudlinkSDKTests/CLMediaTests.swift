@@ -27,8 +27,8 @@ final class CLMediaClientTests : XCTestCase {
         let media = CLMediaClient()
         let exp = expectation(description: "test_getCalls")
         
-        media.getCalls() { result in
-            switch(result) {
+        media.getCalls() { response in
+            switch(response.result) {
             case .success(let data):
                 XCTAssertGreaterThan(data.count, 0)
                 exp.fulfill()
