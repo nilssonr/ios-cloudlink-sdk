@@ -128,10 +128,26 @@ final class CLRouterClientTests : XCTestCase {
             switch(response.result) {
             case .success(let data):
                 XCTAssertGreaterThan(data.count, 0)
-                debugPrint(data)
                 exp.fulfill()
             case .failure(let error):
                 fatalError(error.localizedDescription)
+            }
+        }
+        
+        waitForExpectations(timeout: 5.0, handler: nil)
+    }
+    
+    func test_getSkillGroups() {
+        let router = CLRouterClient()
+        let exp = expectation(description: "test_getSkillGroups")
+        
+        router.getSkillGroups() { response in
+            switch(response.result) {
+            case .success(let data):
+                XCTAssertGreaterThan(data.count, 0)
+                exp.fulfill()
+            case .failure(let error):
+                XCTFail(error.localizedDescription)
             }
         }
         

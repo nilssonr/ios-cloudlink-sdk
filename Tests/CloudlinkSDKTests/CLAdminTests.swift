@@ -21,7 +21,7 @@ final class CLAdminClientTests: XCTestCase {
             case .success(_):
                 exp.fulfill()
             case .failure(let error):
-                fatalError(error.localizedDescription)
+                XCTFail(error.localizedDescription)
             }
         }
         
@@ -116,8 +116,7 @@ final class CLAdminClientTests: XCTestCase {
             case .success(let data):
                 XCTAssertGreaterThan(data.count, 0)
             case .failure(let error):
-                debugPrint(error)
-                XCTFail()
+                XCTFail(error.localizedDescription)
             }
             exp.fulfill()
         }
@@ -162,7 +161,7 @@ final class CLAdminClientTests: XCTestCase {
                         XCTAssertNotNil(data.links)
                         exp.fulfill()
                     case .failure(let error):
-                        debugPrint(error)
+                        XCTFail(error.localizedDescription)
                     }
                 }
             case .failure(let error):

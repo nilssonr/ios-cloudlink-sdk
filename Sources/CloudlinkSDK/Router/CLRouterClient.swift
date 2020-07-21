@@ -4,6 +4,10 @@ public class CLRouterClient {
     private var httpClient = CLHttpClient()
     private var baseUrl = "https://router.dev.api.mitel.io/2018-03-03"
     
+    public func getSkillGroups(completion: @escaping (DataResponse<CLHttpResponse<CLSkillGroup>, AFError>) -> Void) {
+        self.httpClient.session.GET("\(self.baseUrl)/skillgroups").responseDecodable(completionHandler: completion)
+    }
+    
     public func getSkills(completion: @escaping (DataResponse<CLHttpResponse<CLSkill>, AFError>) -> Void) {
         self.httpClient.session.GET("\(self.baseUrl)/skills").responseDecodable(completionHandler: completion)
     }
