@@ -36,7 +36,7 @@ final class CLRouterClientTests : XCTestCase {
             case .success(let data):
                 XCTAssertEqual(data.name, "iOS-SDK-TestSkill")
                 
-                router.deleteSkill(skillId: data.skillId) { response in
+                router.deleteSkill(skillId: data.skillId!) { response in
                     switch(response) {
                     case .success(_):
                         exp.fulfill()
